@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"callbox/internal/app"
+	"log/slog"
+	"os"
+)
 
 func main() {
-	fmt.Println("Hello W")
+
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	app := app.New(logger)
+
+	if err := app.Start(); err != nil {
+		logger.Error("Failed to start server")
+	}
 }
